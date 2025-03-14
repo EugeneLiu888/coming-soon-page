@@ -4,31 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>即將推出 | Coming Soon</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: white;
             text-align: center;
+            overflow-x: hidden;
         }
         .container {
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
         h1 {
-            color: #333;
+            font-size: 4rem;
+            opacity: 0;
+        }
+        p {
+            font-size: 1.5rem;
+            opacity: 0;
+        }
+        .scroll-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transform: translateY(50px);
+            opacity: 0;
         }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <h1>🚀 即將推出 🚀</h1>
-        <p>我們正在努力準備，敬請期待！</p>
+        <h1 id="title">即將推出</h1>
+        <p id="subtitle">Coming Soon</p>
     </div>
+
+    <div class="scroll-section">敬請期待...</div>
+    <div class="scroll-section">為您帶來最佳體驗</div>
+    <div class="scroll-section">即將登場！</div>
+
+    <script>
+        // 初始淡入動畫
+        gsap.to("#title", { opacity: 1, duration: 1, y: -20, ease: "power2.out" });
+        gsap.to("#subtitle", { opacity: 1, duration: 1, y: -20, delay: 0.5, ease: "power2.out" });
+
+        // 滾動時的動畫效果
+        gsap.utils.toArray(".scroll-section").forEach(section => {
+            gsap.to(section, {
+                opacity: 1,
+                y: 0,
+                duration: 1.5,
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%", 
+                    end: "top 50%",
+                    scrub: true,
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
